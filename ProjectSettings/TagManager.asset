@@ -3,15 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - Platform
+  - Knife
+  - Final
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Objeto
   - Water
   - UI
-  - 
+  - Knife
   - 
   - 
   - 
