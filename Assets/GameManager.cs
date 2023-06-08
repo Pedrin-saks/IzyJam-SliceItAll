@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public static event Action<int> OnSliceObject;
 
     private int pointMultiplierFinal;
+    private bool isFinish;
 
     private void Awake()
     {
@@ -56,22 +57,27 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (isFinish) return;
         if(currentStatus == StatusGame.WIN)
         {
+            isFinish = true;
             painelWin.SetActive(true);
             pointsGame *= pointMultiplierFinal;
-            textPointTotal.text = $"Pontos: {pointsGame}";
+            textPointTotal.text = $"\nMultiplocador {pointMultiplierFinal}x \n Pontos: {pointsGame}";
+            Time.timeScale = 0;
         }
         else if(currentStatus == StatusGame.LOSE)
         {
-            painelLose.SetActive(false);
+            isFinish = true;
+            painelLose.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
     private void UpdatePoints(int points)
     {
         pointsGame += points;
-        textPoints.text = $"\nMultiplocador {pointMultiplierFinal}x \n Pontos: {pointsGame}";
+        textPoints.text = $"Pontos: {pointsGame}";
     }
 
     public void OnSlicedObjectTrigger(int points)
@@ -81,12 +87,13 @@ public class GameManager : MonoBehaviour
 
     private void ReloadScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("GamePlay");
     }
 
     public void FinishGame(int mult)
     {
-        mult = pointMultiplierFinal;
+        pointMultiplierFinal = mult;
         currentStatus = StatusGame.WIN;
     }
 

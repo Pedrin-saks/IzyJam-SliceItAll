@@ -8,9 +8,9 @@ public class FinalController : MonoBehaviour
     public int multiplier;
     private bool isFinish;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (isFinish == false && other.gameObject.CompareTag("Knife"))
+        if (isFinish == false && collision.gameObject.CompareTag("Knife"))
         {
             isFinish = true;
             GameManager.instance.FinishGame(multiplier);
